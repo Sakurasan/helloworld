@@ -1,0 +1,37 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - 'master'
+    tags:
+      - 'v*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: checkout code
+        uses: actions/checkout@v2
+      -
+        name: Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3.3.1
+        with:
+          buildx-version: latest
+          qemu-version: latest
+      -
+        name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Run Buildx
+        run: |
+          docker buildx build \
+          --platform linux/amd64,linux/386,linux/arm64,linux/arm/v7,linux/arm/v6 \
+          -t mirrors2/helloworld:latest . --push
