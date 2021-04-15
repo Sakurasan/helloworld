@@ -23,4 +23,6 @@ kubectl get pods -o wide
 kubectl logs -f [pod name] 
 
 ```
+![](images/helloworld.png)
 
+![](images/helloworld_2.png)
