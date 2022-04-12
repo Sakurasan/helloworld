@@ -19,7 +19,7 @@ steps:
     repo: mirrors2/helloworld
     commands:
       - "pwd && ls"
-    context: helloworld
+    # context: helloworld
     dockerfile: Dockerfile
     tags:
     - latest
