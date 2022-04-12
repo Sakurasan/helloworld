@@ -29,6 +29,7 @@ cleand:
 	docker rmi $(docker images |grep none|awk '{print $3}') -f 
 	docker rm $(docker ps -aq) 
 	# docker rm $(docker ps -a |grep -v Up)
+	# docker image prune -f
 
 .PHONY: all
 # generate all

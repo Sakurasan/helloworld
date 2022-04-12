@@ -1,0 +1,42 @@
+---
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: golang:latest
+  commands:
+    - "pwd"
+    - "cd helloworld"
+
+- name: docker  
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: mirrors2/helloworld
+    context: helloworld
+    dockerfile: helloworld/Dockerfile
+    tags:
+    - latest
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
+
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
+    - push
