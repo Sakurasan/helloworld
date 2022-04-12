@@ -3,11 +3,11 @@ kind: pipeline
 name: default
 
 steps:
-# - name: build
-#   image: golang:latest
-#   commands:
-#     - "pwd"
-#     - "cd helloworld"
+- name: build
+  image: golang:latest
+  commands:
+    - "pwd && ls"
+    - "cd helloworld"
 
 - name: latest  
   image: thegeeklab/drone-docker-buildx
