@@ -17,8 +17,10 @@ steps:
     password:
       from_secret: docker_password
     repo: mirrors2/helloworld
+    commands:
+      - "pwd && ls"
     context: helloworld
-    dockerfile: helloworld/Dockerfile
+    dockerfile: Dockerfile
     tags:
     - latest
 
