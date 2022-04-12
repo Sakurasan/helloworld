@@ -29,6 +29,8 @@ steps:
     branch:
     - master
     - alpine/*
+    event: 
+    - tag
 
 trigger:
   branch:
