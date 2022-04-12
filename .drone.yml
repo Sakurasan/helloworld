@@ -9,20 +9,26 @@ steps:
 #     - "pwd"
 #     - "cd helloworld"
 
-- name: docker  
-  image: plugins/docker
+- name: latest  
+  image: thegeeklab/drone-docker-buildx
+  privileged: true
   settings:
+    # registry: 
+    repo: mirrors2/helloworld
+    purge: true
+    compress: true
+    platforms: linux/amd64,linux/arm64
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: mirrors2/helloworld
-    commands:
-      - "pwd && ls"
-    # context: helloworld
+    # context: 
     dockerfile: Dockerfile
-    tags:
-    - latest
+    tags: latest
+  when:
+    branch:
+    - master
+    - alpine/*
 
 trigger:
   branch:
