@@ -3,11 +3,11 @@ kind: pipeline
 name: default
 
 steps:
-- name: build
-  image: golang:latest
-  commands:
-    - "pwd"
-    - "cd helloworld"
+# - name: build
+#   image: golang:latest
+#   commands:
+#     - "pwd"
+#     - "cd helloworld"
 
 - name: docker  
   image: plugins/docker
@@ -21,18 +21,6 @@ steps:
     dockerfile: helloworld/Dockerfile
     tags:
     - latest
-
-services:
-- name: docker
-  image: docker:dind
-  privileged: true
-  volumes:
-  - name: dockersock
-    path: /var/run
-
-volumes:
-- name: dockersock
-  temp: {}
 
 trigger:
   branch:
